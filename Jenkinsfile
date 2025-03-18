@@ -1,6 +1,7 @@
 pipeline {
-    agent { docker {
-		image docker.1ms.run/crystallang/osc
+    agent {
+		docker {
+			image 'docker.1ms.run/crystallang/osc'
 		}
 	}
     triggers {
