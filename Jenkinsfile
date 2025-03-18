@@ -1,5 +1,8 @@
 pipeline {
-    agent { dockerfile true }
+    agent { docker {
+		image docker.1ms.run/crystallang/osc
+		}
+	}
     triggers {
         cron('H 0 * * *')
     }
