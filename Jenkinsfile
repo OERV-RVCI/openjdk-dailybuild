@@ -2,6 +2,7 @@ pipeline {
     agent {
 		docker {
 			image 'docker.1ms.run/crystallang/osc'
+			label 'openjdk-daily'
 		}
 	}
     triggers {
