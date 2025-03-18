@@ -47,7 +47,7 @@ pipeline {
                                 // 使用 Jenkins 凭证管理
                                 withCredentials([file(credentialsId: 'peeweep-oscrc', variable: 'OSCRC')]) {
                                     sh "cat /etc/os-release"
-                                    sh "osc --config $OSCRC service remoterun ${project} ${pkg}"
+                                    sh "osc --config $OSCRC service remoterun home:peeweep:${project} ${pkg}"
                                 }
                             }
                         }
