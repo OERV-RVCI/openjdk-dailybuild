@@ -21,14 +21,11 @@ pipeline {
                     ]
                     
                     def packages = [
-                        "hello-world"
+                        'openjdk-11',
+                        'openjdk-17',
+                        'openjdk-21',
+                        'openjdk-latest'
                     ]
-                    // def packages = [
-                    //     'openjdk-11',
-                    //     'openjdk-17',
-                    //     'openjdk-21',
-                    //     'openjdk-latest'
-                    // ]
 
                     // 创建并行任务集合
                     def parallelTasks = [:]
