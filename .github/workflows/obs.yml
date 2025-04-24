@@ -40,5 +40,4 @@ jobs:
 
     - name: Trigger OBS Remote Run for ${{ matrix.project }} / ${{ matrix.package }}
       run: |
-        echo "Running: osc --config .oscrc service remoterun home:peeweep:${{ matrix.project }} ${{ matrix.package }}"
-        # osc --config .oscrc service remoterun home:peeweep:${{ matrix.project }} ${{ matrix.package }}
+        osc --config .oscrc service remoterun home:peeweep:${{ matrix.project }} ${{ matrix.package }}
