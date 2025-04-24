@@ -28,8 +28,7 @@ jobs:
     steps:
     - name: Install osc
       run: |
-        sudo apt update
-        sudo apt install osc -y
+        pip install osc
 
     - name: Set up oscrc credentials
       env:
