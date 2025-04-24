@@ -1,44 +1,44 @@
 name: Trigger Remote OBS Services
 
 on:
-    push:
-    schedule:
-        # Runs daily 8:00 UTC+8
-        - cron: '0 0 * * *'
-    workflow_dispatch:
+  push:
+  schedule:
+    # daily 8:00 UTC+8
+    - cron: '0 0 * * *'
+  workflow_dispatch:
 
 jobs:
-    trigger-osc:
-        runs-on: ubuntu-latest
+  trigger-osc:
+    runs-on: ubuntu-latest
 
-        strategy:
-            fail-fast: false # Allows other jobs to continue if one fails
-            matrix:
-                project:
-                    - 'openEuler:OpenJDK:24.03'
-                    - 'openEuler:OpenJDK:24.03:SP1'
-                    - 'openEuler:OpenJDK:24.03:Next'
-                    - 'openEuler:OpenJDK:master'
-                package:
-                    - 'openjdk-11'
-                    - 'openjdk-17'
-                    - 'openjdk-21'
-                    - 'openjdk-latest'
+    strategy:
+      fail-fast: false # Allows other jobs to continue if one fails
+      matrix:
+        project:
+          - 'openEuler:OpenJDK:24.03'
+          - 'openEuler:OpenJDK:24.03:SP1'
+          - 'openEuler:OpenJDK:24.03:Next'
+          - 'openEuler:OpenJDK:master'
+        package:
+          - 'openjdk-11'
+          - 'openjdk-17'
+          - 'openjdk-21'
+          - 'openjdk-latest'
 
-        steps:
-            - name: Install osc
-                run: |
-                    sudo apt update
-                    sudo apt install osc -y
+    steps:
+    - name: Install osc
+      run: |
+        sudo apt update
+        sudo apt install osc -y
 
-            - name: Set up oscrc credentials
-                env:
-                    OSCRC_CONTENT: ${{ secrets.OBS_PEEWEEP_OSCRC }}
-                run: |
-                    echo "$OSCRC_CONTENT" > .oscrc
-                    echo "Created .oscrc"
+    - name: Set up oscrc credentials
+      env:
+        OSCRC_CONTENT: ${{ secrets.OBS_PEEWEEP_OSCRC }}
+      run: |
+        echo "$OSCRC_CONTENT" > .oscrc
+        echo "Created .oscrc"
 
-            - name: Trigger OBS Remote Run for ${{ matrix.project }} / ${{ matrix.package }}
-                run: |
-                    echo "Running: osc --config .oscrc service remoterun home:peeweep:${{ matrix.project }} ${{ matrix.package }}"
-                    # osc --config .oscrc service remoterun home:peeweep:${{ matrix.project }} ${{ matrix.package }}
+    - name: Trigger OBS Remote Run for ${{ matrix.project }} / ${{ matrix.package }}
+      run: |
+        echo "Running: osc --config .oscrc service remoterun home:peeweep:${{ matrix.project }} ${{ matrix.package }}"
+        # osc --config .oscrc service remoterun home:peeweep:${{ matrix.project }} ${{ matrix.package }}
