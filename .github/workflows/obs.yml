@@ -15,10 +15,10 @@ jobs:
       fail-fast: false # Allows other jobs to continue if one fails
       matrix:
         project:
-          - 'openEuler:OpenJDK:24.03'
-          - 'openEuler:OpenJDK:24.03:SP1'
-          - 'openEuler:OpenJDK:24.03:Next'
-          - 'openEuler:OpenJDK:master'
+          - '24.03'
+          - '24.03:SP1'
+          - '24.03:Next'
+          - 'master'
         package:
           - 'openjdk-11'
           - 'openjdk-17'
@@ -39,4 +39,4 @@ jobs:
 
     - name: Trigger OBS Remote Run for ${{ matrix.project }} / ${{ matrix.package }}
       run: |
-        osc --config .oscrc service remoterun home:peeweep:${{ matrix.project }} ${{ matrix.package }}
+        osc --config .oscrc service remoterun Factory:RISC-V:OpenJDK:${{ matrix.project }} ${{ matrix.package }}
